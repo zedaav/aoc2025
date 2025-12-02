@@ -44,7 +44,7 @@ class AOCPuzzle(ABC):
     def __init__(self, input_file: Path):
         # Parse input file
         self.input_file = input_file
-        self.input_lines = []
+        self.input_lines: list[str] = []
         self.parse_file()
 
     def parse_file(self):
@@ -62,5 +62,5 @@ class AOCPuzzle(ABC):
         return line.strip("\r\n ")
 
     @abstractmethod
-    def solve(self) -> int | str | list[str]:  # pragma: no cover
+    def solve(self, some_arg: int | str | None = None) -> int | str | list[str]:  # pragma: no cover
         pass
