@@ -20,48 +20,37 @@ class D03Puzzle(AOCPuzzle):
         return parsed_line
 
     @staticmethod
-    def find_max(cells: list[int]) -> tuple[int, int]:
-        candidate_max = 0
-        candidate_pos = 0
-        for pos, i in enumerate(cells):
-            if i > candidate_max:
-                candidate_max = i
-                candidate_pos = pos
-                if candidate_max == 9:
-                    break
-        return (candidate_pos, candidate_max)
+    def largest_subnumber(number: list[int], k: int) -> int:
+        n = len(number)
+        stack: list[int] = []
+        to_remove = n - k  # How many we are allowed to drop overall
+        for x in number:
+            # While we can remove something and last < x, pop to allow a larger digit earlier
+            while stack and to_remove > 0 and stack[-1] < x:
+                stack.pop()
+                to_remove -= 1
+            stack.append(x)
+
+        # If we didn't remove enough, trim the end
+        stack = stack[:k]
+
+        result = 0
+        for pos, d in enumerate(stack[::-1]):
+            result += d * (10**pos)
+        return result
 
 
 class D03Step1Puzzle(D03Puzzle):
     def solve(self, some_arg: int | str | None = None) -> int:
         result = 0
         for battery in self._batteries:
-            # First max
-            pos1, max1 = self.find_max(battery)
-
-            # Secondary maximums
-            if pos1 > 0:
-                _, max0 = self.find_max(battery[0:pos1])
-            else:
-                _, max0 = None, None
-            if pos1 < len(battery) - 1:
-                _, max2 = self.find_max(battery[pos1 + 1 :])
-            else:
-                _, max2 = None, None
-
-            # Prepare candidate
-            candidates: list[int] = []
-            if max0:
-                candidates.append(max0 * 10 + max1)
-            if max2:
-                candidates.append(max1 * 10 + max2)
-
-            # Use the max of them
-            joltage = max(candidates)
-            result += joltage
+            result += self.largest_subnumber(battery, 2)
         return result
 
 
 class D03Step2Puzzle(D03Puzzle):
     def solve(self, some_arg: int | str | None = None) -> int:
-        return 0
+        result = 0
+        for battery in self._batteries:
+            result += self.largest_subnumber(battery, 12)
+        return result
