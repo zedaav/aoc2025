@@ -45,4 +45,17 @@ class D05Step1Puzzle(D05Puzzle):
 
 class D05Step2Puzzle(D05Puzzle):
     def solve(self, some_arg: int | str | None = None) -> int:
-        return 0
+        # Merge all ranges
+        merged_ranges: list[tuple[int, int]] = []
+        for a, b in sorted(self._ranges):
+            for i, (ma, mb) in enumerate(merged_ranges):
+                if ((ma - 1) <= a <= (mb + 1)) or ((ma - 1) <= b <= (mb + 1)):
+                    # Overlapping ranges, merge
+                    merged_ranges[i] = (min(a, ma), max(b, mb))
+                    break
+            else:
+                # No overlap, add new range
+                merged_ranges.append((a, b))
+
+        # Sum all ranges
+        return sum((b - a + 1) for a, b in merged_ranges)
