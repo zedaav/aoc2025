@@ -8,5 +8,7 @@ config:
   # Python things
   pythonMinVersion: "3.10"
   githubPythonVersions: ["${pythonMinVersion}"]
+  pythonPackageRequirements:
+    - numpy
   pytestExtraArgs:
     cov-fail-under: 0
