@@ -1,3 +1,4 @@
+import logging
 from abc import ABC, abstractmethod
 from enum import IntEnum, auto
 from pathlib import Path
@@ -42,6 +43,9 @@ OFFSETS = {
 # Base class for puzzle solutions
 class AOCPuzzle(ABC):
     def __init__(self, input_file: Path):
+        # Setup logger
+        self._logger = logging.getLogger(__name__)
+
         # Parse input file
         self.input_file = input_file
         self.input_lines: list[str] = []
