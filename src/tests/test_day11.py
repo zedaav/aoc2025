@@ -11,7 +11,7 @@ class TestD11(AOCPuzzleTester):
         self.check_solution(D11Step1Puzzle, "d11.input.txt", 708)
 
     def test_step2_sample(self):
-        self.check_solution(D11Step2Puzzle, "d11.sample2.txt", 0)
+        self.check_solution(D11Step2Puzzle, "d11.sample2.txt", 2)
 
     def test_step2_input(self):
-        self.check_solution(D11Step2Puzzle, "d11.input.txt", 0)
+        self.check_solution(D11Step2Puzzle, "d11.input.txt", 545394698933400)
