@@ -6,6 +6,7 @@
 # Package dependencies from nmk project files
 #
 
+matplotlib
 nmk-base
 nmk-github
 nmk-python

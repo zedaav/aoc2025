@@ -10,5 +10,6 @@ config:
   githubPythonVersions: ["${pythonMinVersion}"]
   pythonPackageRequirements:
     - numpy
+    - matplotlib
   pytestExtraArgs:
     cov-fail-under: 0
